@@ -1,0 +1,230 @@
+# Tomcat
+server:
+    tomcat:
+        uri-encoding: UTF-8
+        max-threads: 1000
+        min-spare-threads: 30
+    #port: 1100
+    port: 1161
+    servlet:
+        context-path: /
+    session:
+       cookie:
+          name: ADMIN
+          http-only: false
+
+# mysql
+spring:
+    # 环境 dev|test|prod
+    profiles:
+         active: dev
+         #active: test
+         #active: prod
+    servlet:
+        multipart:
+            max-file-size: 100MB
+            max-request-size: 100MB
+            enabled: true
+    redis:
+        database: 0
+        host: 127.0.0.1
+        port: 6379
+        password:      # 密码（默认为空）
+        timeout: 6000ms  # 连接超时时长（毫秒）
+        jedis:
+            pool:
+                max-active: 1000  # 连接池最大连接数（使用负值表示没有限制）
+                max-wait: -1ms      # 连接池最大阻塞等待时间（使用负值表示没有限制）
+                max-idle: 10      # 连接池中的最大空闲连接
+                min-idle: 5       # 连接池中的最小空闲连接
+    freemarker:
+      suffix: .html
+      request-context-attribute: request
+
+
+iframe:
+    redis:
+        open: false  # 是否开启redis缓存  true开启   false关闭
+    shiro:
+        redis: false # true表示shiro session存到redis里，需要开启redis，才会生效【分布式场景】
+
+#mybatis
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.ixincheng.modules.*.entity
+  global-config:
+    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+    id-type: 0
+    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+    field-strategy: 2
+    #驼峰下划线转换
+    db-column-underline: true
+    #刷新mapper 调试神器
+    refresh-mapper: true
+    #数据库大写下划线转换
+    #capital-mode: true
+    # Sequence序列接口实现类配置
+    #key-generator: com.baomidou.mybatisplus.incrementer.OracleKeyGenerator
+    #逻辑删除配置
+    logic-delete-value: -1
+    logic-not-delete-value: 0
+    #自定义填充策略接口实现
+    #meta-object-handler: com.baomidou.springboot.xxx
+    #自定义SQL注入器
+    sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    call-setters-on-nulls: true
+ 
+#排名配置信息
+ranking:
+  #用户评价值
+  score: 0.3
+  #用户评价值集合
+  scoreList:
+    #综合星级后乘以多少
+    comprehensive: 20
+    #默认多少
+    defaultvalue: 3
+  #选用情况值
+  choose: 0.4
+  #选用情况值最多得
+  chooseList: 100
+  #选用次数与得分的比例
+  #产品完善度值
+  perfect: 0.3
+  #产品完善度子集
+  perfectList:
+    #产品标签
+    label: 0.015
+    #产品标签集合
+    labelList:
+      #没有标签得分
+      nolabel: 0
+      #第一个标签分数
+      thefirst: 20
+      #剩余的标签分数
+      redundant: 10
+      #最多分数
+      labelmostscores: 100
+    #全国绿色建材评价标识证书
+    green: 0.12
+    #全国绿色建材评价标识证书集合
+    greenList:
+      #不上传分数
+      noupload: 0
+      #上传的分数
+      isupload: 100
+    #产品视频
+    video: 0.015
+    #视频子集
+    videoList:
+      #制造过程视频
+      process: 30
+      #工艺安装视频
+      installation: 40
+      #运行效果视频
+      runningeffect: 30
+    #产品模型
+    family: 0.045
+    #模型分数
+    familyList:
+      #模型分数
+      model: 20
+      #不上传得分
+      nomodel: 0
+    #产品图片
+    img: 0.006
+    #图片分数
+    imgList:
+      #第一个图片的分数
+      oneimg: 30
+      #多上创一个分数
+      moreimg: 10
+      #最多得分
+      imgmostscores: 100
+    #产品样本
+    sample: 0.03
+    #样本集合
+    sampleList:
+      #上传PDF分数
+      ispdfscores: 100
+      #不上传分数
+      noscores: 0
+      #上传多个PDF是否加分（0不加，1加）
+      ismostpdf: 0
+      #上传多个加多少分
+      ismost: 0
+    #产品CAD图
+    cadImg: 0.015
+    #产品CAD图集合
+    cadImgList:
+      #上传CAD分数
+      iscadImg: 100
+      #不上传得分
+      nocadImg: 0
+      #多上传是否加分（0不加，1加）
+      mostcadImg: 0
+      #加多少分
+      mostcad: 0
+    #管理体系认证
+    certification: 0.003
+    #管理体系认证集合
+    certificationList:
+      #质量	
+      quality: 25
+      #上传一个得分	
+      onequality: 20
+      #最多得分	
+      mostquality: 100
+      #环境
+      environment: 25
+      #职业健康安全
+      health: 25
+      #能源管理体系
+      energy: 25
+    #其他证书
+    ficate: 0.003
+    #其他证书集合
+    ficateList:
+      #产品检测
+      detection: 20
+      #推广应用
+      promote: 20
+      #用户使用
+      useruse: 20
+      #产品获奖
+      winning: 20
+      #行业准入证明
+      industry: 20
+      #上传一个得分
+      oneficate: 20
+      #最多得分
+      mostficate: 100
+    #产品说明
+    instructions: 0.045
+    instructionsList:
+      #基本说明
+      basic: 100
+      #产品用途
+      productuse: 0
+    #产品保修
+    repair: 0.003
+    #产品保修集合
+    repairList:
+       #上传得分
+       isrepair: 100
+       #不上传得分
+       norepair: 0
+       #多个是否累计加分（0是不加，1是加）
+       ismostrepair: 0
+       #多个得分
+       mostrepair: 0
+        
+logging:
+  level: debug
+  level.com.ixincheng: debug
+  path: logs/
+  file: admin.log
