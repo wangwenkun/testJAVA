@@ -1,0 +1,10 @@
+/target/
+/src/test
+*.idea
+*.project
+*.git
+*.settings
+*.classpath
+*.prefs
+*.log
+*.gz
